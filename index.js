@@ -2,21 +2,20 @@ const express = require('express');
 
 const server = express();
 
+server.use(express.json())
 server.get('/geeks', (req, res) => {
-    return res.json( { message: ‘Hello world2’  } );
-    })
-    
-    server.get('/geeks/:index', checkUserInArray, (req, res) => {
-        return res.json(req.user);
-        })
+    return res.json({ message: 'Hello world2' });
+})
 
-    server.post('/geeks', checkUserExists, (req, res) => {
+    let geeks = []
+    server.use(express.json())
+    server.post('/geeks', (req, res) => {
         const { name } = req.body; // assim esperamos buscar o name informado dentro do body da requisição
         geeks.push(name);
         return res.json(geeks); // retorna a informação da variável geeks
         })
 
-
+    server.use(express.json())
     server.put('/geeks/:index', (req, res) => {
         const { index } = req.params; // recupera o index com os dados
         const { name } = req.body;
@@ -26,6 +25,7 @@ server.get('/geeks', (req, res) => {
         return res.json(geeks);
         })
 
+    server.use(express.json())
     server.delete('/geeks/:index', (req, res) => {
         const { index } = req.params; // recupera o index com os dados
         
